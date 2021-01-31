@@ -15,6 +15,7 @@ namespace Chess_Openings_Coach
         private TreeNode _blackRepertoireNode;
         private readonly Color DARK_MODE_BACKGROUND_COLOR = Color.FromArgb(51, 51, 0);
         private readonly Color DARK_MODE_FOREGROUND_COLOR = Color.DarkGray;
+        private bool _updatingSelection = false;
         private const string _ctxMnuLoadNewBook = "Load new book…";
         private const string _ctxMnuRename = "Rename…";
         private const string _ctxMnuDelete = "Delete";
@@ -135,6 +136,7 @@ namespace Chess_Openings_Coach
                     case _ctxMnuLoadNewBook:
                         break;
                     case _ctxMnuRename:
+                        CtxMnuRepertoire.Hide();
                         var newNameDlg = new FrmRenameBook(this.Book.Name);
                         if (newNameDlg.ShowDialog() == DialogResult.OK)
                         {
@@ -143,6 +145,28 @@ namespace Chess_Openings_Coach
                         }
                         break;
                     case _ctxMnuDelete:
+                        CtxMnuRepertoire.Hide();
+                        if(MessageBox.Show(Translate("Msg_SureToDelete"), 
+                            Translate("Msg_Confirmation"), 
+                            MessageBoxButtons.YesNo, 
+                            MessageBoxIcon.Question, 
+                            MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            try
+                            {
+                                TreeNode selectedNode = TrvRepertoires.SelectedNode;
+                                TreeNode parentNode = selectedNode.Parent;
+                                OpeningMove parentMove = (OpeningMove)parentNode.Tag;
+                                OpeningMove selectedMove = (OpeningMove)selectedNode.Tag;
+
+                                parentMove.Children.Remove(selectedMove);
+                                parentNode.Nodes.Remove(selectedNode);
+                            }
+                            catch (Exception ex)
+                            {
+                                ShowError(ex);
+                            }
+                        }
                         break;
                 }
             }
@@ -156,13 +180,13 @@ namespace Chess_Openings_Coach
         {
             try
             {
-                ToolStripMenuItem loadNewBookItem = new ToolStripMenuItem(Translate("ctxMnu_LoadNewBook"));
+                ToolStripMenuItem loadNewBookItem = new ToolStripMenuItem(Translate("ctxMnu_LoadNewBook"), Properties.Resources.folder_open_32);
                 loadNewBookItem.Enabled = false;
                 loadNewBookItem.Name = _ctxMnuLoadNewBook;
-                ToolStripMenuItem renameItem = new ToolStripMenuItem(Translate("ctxMnu_Rename"));
+                ToolStripMenuItem renameItem = new ToolStripMenuItem(Translate("ctxMnu_Rename"), Properties.Resources.pen_32);
                 renameItem.Enabled = false;
                 renameItem.Name = _ctxMnuRename;
-                ToolStripMenuItem deleteItem = new ToolStripMenuItem(Translate("ctxMnu_Delete"));
+                ToolStripMenuItem deleteItem = new ToolStripMenuItem(Translate("ctxMnu_Delete"), Properties.Resources.delete_32);
                 deleteItem.Enabled = false;
                 deleteItem.Name = _ctxMnuDelete;
 
@@ -180,6 +204,17 @@ namespace Chess_Openings_Coach
         {
             Book = new OpeningBook(Translate("trv_DefaultBook"));
             LoadBook(Book);
+        }
+
+        private void ChangeAllChildNodesSelection(TreeNode node, bool isChecked)
+        {
+            foreach (TreeNode childNode in node.Nodes)
+            {
+                OpeningMove move = (OpeningMove)childNode.Tag;
+                childNode.Checked = isChecked;
+                move.Selected = isChecked;
+                if(childNode.Nodes.Count > 0) { ChangeAllChildNodesSelection(childNode, isChecked); }
+            }
         }
 
         private void ChangeMode(WorkingMode newMode)
@@ -266,12 +301,31 @@ namespace Chess_Openings_Coach
                 {
                     var repertoire = (OpeningRepertoire)selectedNode.Tag;
                     repertoire.Selected = selectedNode.Checked;
+                    _updatingSelection = true;
+                    ChangeAllChildNodesSelection(selectedNode, selectedNode.Checked);
+                    _updatingSelection = false;
+                }
+                else if(nodeType == typeof(OpeningBook))
+                {
+                    var blackRepertoire = (OpeningRepertoire)_blackRepertoireNode.Tag;
+                    var whiteRepertoire = (OpeningRepertoire)_whiteRepertoireNode.Tag;
+                    blackRepertoire.Selected = selectedNode.Checked;
+                    whiteRepertoire.Selected = selectedNode.Checked;
+
+                    _updatingSelection = true;
+                    _whiteRepertoireNode.Checked = selectedNode.Checked;
+                    _blackRepertoireNode.Checked = selectedNode.Checked;
+                    ChangeAllChildNodesSelection(_whiteRepertoireNode , selectedNode.Checked);
+                    ChangeAllChildNodesSelection(_blackRepertoireNode, selectedNode.Checked);
+                    _updatingSelection = false;
                 }
             }
             catch (Exception ex)
             {
                 ShowError(ex);
             }
+            TrvRepertoires.SelectedNode = selectedNode;
+            TrvRepertoires.Focus();
         }
 
         private OpeningRepertoire GetParentRepertoire(TreeNode childNode)
@@ -388,6 +442,8 @@ namespace Chess_Openings_Coach
                 chessOpeningInfo1.Enabled = true;
                 chessboard1.BoardDirection = SelectedRepertoire.Color == ChessColor.White ? BoardDirection.BlackOnTop : BoardDirection.WhiteOnTop;
             }
+
+            TrvRepertoires.Focus();
         }
 
         private void Save()
@@ -585,7 +641,8 @@ namespace Chess_Openings_Coach
 
         private void TrvRepertoires_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            ChangeQuizSelection(e.Node);
+            if (!_updatingSelection)
+            { ChangeQuizSelection(e.Node); }
         }
 
         private void TrvRepertoires_AfterSelect(object sender, TreeViewEventArgs e)

@@ -126,6 +126,12 @@
   <data name="ctxMnu_Rename" xml:space="preserve">
     <value>Rename…</value>
   </data>
+  <data name="Msg_Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="Msg_SureToDelete" xml:space="preserve">
+    <value>Are you sure to want to delete this opening line?</value>
+  </data>
   <data name="trv_BlackRepertoire" xml:space="preserve">
     <value>Blacks’ Repertoire</value>
   </data>

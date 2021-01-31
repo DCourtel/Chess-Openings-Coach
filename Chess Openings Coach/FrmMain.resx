@@ -129,7 +129,7 @@
     <value>Fill</value>
   </data>
   <data name="TrvRepertoires.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 10pt</value>
+    <value>Microsoft Sans Serif, 11pt</value>
   </data>
   <data name="TrvRepertoires.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -165,6 +165,9 @@
   <data name="&gt;&gt;splitContainer1.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="splitContainer1.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>200</value>
+  </data>
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -178,7 +181,7 @@
     <value>3, 3</value>
   </data>
   <data name="chessboard1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 392</value>
+    <value>429, 392</value>
   </data>
   <data name="chessboard1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -208,7 +211,7 @@
     <value>3, 401</value>
   </data>
   <data name="chessOpeningInfo1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 138</value>
+    <value>429, 138</value>
   </data>
   <data name="chessOpeningInfo1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -235,7 +238,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>437, 542</value>
+    <value>435, 542</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -267,11 +270,17 @@
   <data name="&gt;&gt;splitContainer1.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="splitContainer1.Panel2MinSize" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
     <value>830, 542</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
     <value>389</value>
+  </data>
+  <data name="splitContainer1.SplitterWidth" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -410,7 +419,7 @@
     <value>Ctrl+Z</value>
   </data>
   <data name="CancelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="CancelToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Annuler</value>
@@ -419,13 +428,13 @@
     <value>Ctrl+Y</value>
   </data>
   <data name="RedoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="RedoToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Rétablir</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>161, 6</value>
   </data>
   <data name="CutToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -447,7 +456,7 @@
     <value>Ctrl+X</value>
   </data>
   <data name="CutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="CutToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Couper</value>
@@ -473,7 +482,7 @@
     <value>Ctrl+C</value>
   </data>
   <data name="CopyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="CopyToolStripMenuItem.Text" xml:space="preserve">
     <value>Co&amp;pier</value>
@@ -501,16 +510,16 @@
     <value>Ctrl+V</value>
   </data>
   <data name="PasteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="PasteToolStripMenuItem.Text" xml:space="preserve">
     <value>Co&amp;ller</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>161, 6</value>
   </data>
   <data name="SelectAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="SelectAllToolStripMenuItem.Text" xml:space="preserve">
     <value>Sélectio&amp;nner tout</value>
@@ -525,19 +534,19 @@
     <value>&amp;Edition</value>
   </data>
   <data name="CreateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>108, 22</value>
   </data>
   <data name="CreateToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Create</value>
   </data>
   <data name="LearnToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>108, 22</value>
   </data>
   <data name="LearnToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Learn</value>
   </data>
   <data name="QuizToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>108, 22</value>
   </data>
   <data name="QuizToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Quiz</value>
@@ -549,7 +558,7 @@
     <value>&amp;Mode</value>
   </data>
   <data name="AboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>116, 22</value>
   </data>
   <data name="AboutToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;About…</value>
@@ -587,6 +596,9 @@
   <metadata name="CtxMnuRepertoire.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>121, 17</value>
   </metadata>
+  <data name="CtxMnuRepertoire.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 10pt</value>
+  </data>
   <data name="CtxMnuRepertoire.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 4</value>
   </data>

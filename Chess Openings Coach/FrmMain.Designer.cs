@@ -282,8 +282,8 @@ namespace Chess_Openings_Coach
             // 
             // CtxMnuRepertoire
             // 
-            this.CtxMnuRepertoire.Name = "CtxMnuRepertoire";
             resources.ApplyResources(this.CtxMnuRepertoire, "CtxMnuRepertoire");
+            this.CtxMnuRepertoire.Name = "CtxMnuRepertoire";
             this.CtxMnuRepertoire.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMnuRepertoire_ItemClicked);
             // 
             // FrmMain

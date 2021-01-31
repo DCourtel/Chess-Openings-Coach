@@ -88,6 +88,24 @@ namespace Chess_Openings_Coach.Internationalization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmation.
+        /// </summary>
+        internal static string Msg_Confirmation {
+            get {
+                return ResourceManager.GetString("Msg_Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Are you sure to want to delete this opening line?.
+        /// </summary>
+        internal static string Msg_SureToDelete {
+            get {
+                return ResourceManager.GetString("Msg_SureToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Blacks’ Repertoire.
         /// </summary>
         internal static string trv_BlackRepertoire {

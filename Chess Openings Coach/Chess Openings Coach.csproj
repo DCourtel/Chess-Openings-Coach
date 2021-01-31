@@ -113,6 +113,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -130,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icone Application.ico" />
+    <None Include="Resources\pen_32.png" />
+    <None Include="Resources\delete_32.png" />
+    <None Include="Resources\folder-open_32.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChessOpeningRepertoire\ChessOpeningRepertoire.csproj">
@@ -137,5 +141,6 @@
       <Name>ChessOpeningRepertoire</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

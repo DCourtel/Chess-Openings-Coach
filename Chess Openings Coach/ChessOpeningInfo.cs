@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Chess_Openings_Coach
 {
     public partial class ChessOpeningInfo : UserControl
     {
+        private readonly Color DARK_MODE_BACKGROUND_COLOR = Color.FromArgb(51, 51, 0);
+        private readonly Color DARK_MODE_FOREGROUND_COLOR = Color.DarkGray;
         private bool _disableUpdate = false;
 
         public ChessOpeningInfo()
@@ -70,9 +73,33 @@ namespace Chess_Openings_Coach
             }
         }
 
+        private bool _useDarkTheme = false;
+        public bool UseDarkTheme
+        {
+            get { return _useDarkTheme; }
+            set
+            {
+                _useDarkTheme = value;
+                ChangeTheme(_useDarkTheme);
+            }
+        }
+
         #endregion Properties
 
         #region Methods
+
+        private void ChangeTheme(bool useDarkTheme)
+        {
+            this.BackColor = (useDarkTheme ? DARK_MODE_BACKGROUND_COLOR : SystemColors.Window);
+            this.ForeColor = (useDarkTheme ? DARK_MODE_FOREGROUND_COLOR : SystemColors.ControlText);
+
+            foreach (Control ctrl in this.Controls)
+            {
+                ctrl.BackColor = (useDarkTheme ? DARK_MODE_BACKGROUND_COLOR : SystemColors.Window);
+                ctrl.ForeColor = (useDarkTheme ? DARK_MODE_FOREGROUND_COLOR : SystemColors.ControlText);
+                ctrl.Refresh();
+            }
+        }
 
         public void Clear()
         {
@@ -89,7 +116,7 @@ namespace Chess_Openings_Coach
             this.TxtBxName.Select(0, 0);
             this.TxtBxName.Focus();
             this.TxtBxName.ScrollToCaret();
-                }
+        }
 
         #endregion Methods
 

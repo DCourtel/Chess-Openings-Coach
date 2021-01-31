@@ -127,12 +127,12 @@
     <value>Renommer…</value>
   </data>
   <data name="trv_BlackRepertoire" xml:space="preserve">
-    <value>Repertoire des noirs</value>
+    <value>Répertoire des Noirs</value>
   </data>
   <data name="trv_DefaultBook" xml:space="preserve">
     <value>Livre par défaut</value>
   </data>
   <data name="trv_WhiteRepertoire" xml:space="preserve">
-    <value>Repertoire des blancs</value>
+    <value>Répertoire des Blancs</value>
   </data>
 </root>

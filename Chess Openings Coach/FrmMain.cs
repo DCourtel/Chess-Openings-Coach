@@ -13,19 +13,28 @@ namespace Chess_Openings_Coach
     {
         private TreeNode _whiteRepertoireNode;
         private TreeNode _blackRepertoireNode;
+        private readonly Color DARK_MODE_BACKGROUND_COLOR = Color.FromArgb(51, 51, 0);
+        private readonly Color DARK_MODE_FOREGROUND_COLOR = Color.DarkGray;
         private const string _ctxMnuLoadNewBook = "Load new book…";
         private const string _ctxMnuRename = "Rename…";
         private const string _ctxMnuDelete = "Delete";
 
+        private enum WorkingMode
+        {
+            Create,
+            Learn,
+            Quiz
+        }
 
         private System.Resources.ResourceManager resMan = new System.Resources.ResourceManager("Chess_Openings_Coach.Internationalization.Resources", typeof(FrmMain).Assembly);
 
         public FrmMain()
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            //  System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             InitializeComponent();
             CreateDefaultBook();
             CreateContextMenu();
+            ChangeTheme(IsDarkThemeEnable);
         }
 
         #region Properties
@@ -36,9 +45,41 @@ namespace Chess_Openings_Coach
         private OpeningBook Book { get; set; }
 
         /// <summary>
+        /// Gets if dark mode is enable.
+        /// </summary>
+        private bool IsDarkThemeEnable
+        {
+            get
+            {
+                //  HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize  AppsUseLightTheme   DWORD   0=Dark  1=Light
+                try
+                {
+                    using (var hkcu = Microsoft.Win32.Registry.CurrentUser)
+                    {
+                        using (var themeKey = hkcu.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize", false))
+                        {
+                            if (themeKey != null)
+                            {
+                                return (int)themeKey.GetValue("AppsUseLightTheme", 1) == 0;
+                            }
+                        }
+                    }
+                }
+                catch (Exception) { }
+
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the currently selected repertoire.
         /// </summary>
         private OpeningRepertoire SelectedRepertoire { get; set; }
+
+        /// <summary>
+        /// Gets or sets the behavior of the application.
+        /// </summary>
+        private WorkingMode WorkMode { get; set; } = WorkingMode.Create;
 
         #endregion Properties
 
@@ -85,7 +126,7 @@ namespace Chess_Openings_Coach
             return null;
         }
 
-        private void ContexMenuItemClicked(ToolStripItem clickedItem) 
+        private void ContexMenuItemClicked(ToolStripItem clickedItem)
         {
             try
             {
@@ -141,6 +182,98 @@ namespace Chess_Openings_Coach
             LoadBook(Book);
         }
 
+        private void ChangeMode(WorkingMode newMode)
+        {
+            this.WorkMode = newMode;
+            switch (newMode)
+            {
+                case WorkingMode.Create:
+                    CreateToolStripMenuItem.Checked = true;
+                    LearnToolStripMenuItem.Checked = false;
+                    QuizToolStripMenuItem.Checked = false;
+                    break;
+                case WorkingMode.Learn:
+                    CreateToolStripMenuItem.Checked = false;
+                    LearnToolStripMenuItem.Checked = true;
+                    QuizToolStripMenuItem.Checked = false;
+                    break;
+                case WorkingMode.Quiz:
+                    CreateToolStripMenuItem.Checked = false;
+                    LearnToolStripMenuItem.Checked = false;
+                    QuizToolStripMenuItem.Checked = true;
+                    break;
+            }
+        }
+
+        private void ChangeTheme(bool useDarkTheme)
+        {
+            this.BackColor = (useDarkTheme ? DARK_MODE_BACKGROUND_COLOR : SystemColors.Window);
+            this.ForeColor = (useDarkTheme ? DARK_MODE_FOREGROUND_COLOR : SystemColors.ControlText);
+
+            ChangeTheme(this.Controls, useDarkTheme);
+            chessOpeningInfo1.UseDarkTheme = useDarkTheme;
+        }
+
+        private void ChangeTheme(Control.ControlCollection controls, bool useDarkTheme)
+        {
+            foreach (Control ctrl in controls)
+            {
+                ctrl.BackColor = (useDarkTheme ? DARK_MODE_BACKGROUND_COLOR : SystemColors.Window);
+                ctrl.ForeColor = (useDarkTheme ? DARK_MODE_FOREGROUND_COLOR : SystemColors.ControlText);
+                ctrl.Refresh();
+                try
+                {
+                    if (ctrl.Controls != null && ctrl.Controls.Count > 0)
+                    {
+                        ChangeTheme(ctrl.Controls, useDarkTheme);
+                    }
+                }
+                catch (Exception) { }
+            }
+        }
+
+        private void ChangeQuizSelection(TreeNode selectedNode)
+        {
+            try
+            {
+                var nodeType = selectedNode.Tag.GetType();
+                if (nodeType == typeof(OpeningMove))
+                {
+                    var move = (OpeningMove)selectedNode.Tag;
+                    move.Selected = selectedNode.Checked;
+                    if (selectedNode.Checked)
+                    {
+                        //  Select all parent nodes
+                        var parentNode = selectedNode.Parent;
+                        if (parentNode != null && parentNode.Tag.GetType() == typeof(OpeningMove))
+                        {
+                            parentNode.Checked = true;
+                        }
+                    }
+                    else
+                    {
+                        //  Unselect all children nodes
+                        if (selectedNode.Nodes.Count > 0)
+                        {
+                            foreach (TreeNode childNode in selectedNode.Nodes)
+                            {
+                                childNode.Checked = false;
+                            }
+                        }
+                    }
+                }
+                else if (nodeType == typeof(OpeningRepertoire))
+                {
+                    var repertoire = (OpeningRepertoire)selectedNode.Tag;
+                    repertoire.Selected = selectedNode.Checked;
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
         private OpeningRepertoire GetParentRepertoire(TreeNode childNode)
         {
             if (childNode == null) { return null; }
@@ -156,9 +289,9 @@ namespace Chess_Openings_Coach
             {
                 return resMan.GetString(text);
             }
-            catch (Exception)            {            }
+            catch (Exception) { }
 
-            return $"Missing ressource:{(string.IsNullOrWhiteSpace(text)?"null":text)}";
+            return $"Missing ressource:{(string.IsNullOrWhiteSpace(text) ? "null" : text)}";
         }
 
         private void LoadBook()
@@ -176,7 +309,7 @@ namespace Chess_Openings_Coach
                 {
                     this.Book = OpeningBook.LoadFromFile(loadFile.FileName);
                     LoadBook(this.Book);
-                    enregistrerToolStripMenuItem.Enabled = true;
+                    SaveToolStripMenuItem.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -196,13 +329,15 @@ namespace Chess_Openings_Coach
             bookNode.Nodes.Add(_whiteRepertoireNode);
             LoadOpenings(_whiteRepertoireNode, book.WhiteRepertoire.Moves);
             _whiteRepertoireNode.Expand();
-            
+
             _blackRepertoireNode = new TreeNode(Translate("trv_BlackRepertoire")) { Tag = book.BlackRepertoire };
             bookNode.Nodes.Add(_blackRepertoireNode);
             LoadOpenings(_blackRepertoireNode, book.BlackRepertoire.Moves);
             _blackRepertoireNode.Expand();
 
             bookNode.Expand();
+            SaveAsToolStripMenuItem.Enabled = true;
+            if (!string.IsNullOrWhiteSpace(this.Book.Filename)) { SaveToolStripMenuItem.Enabled = true; }
         }
 
         private void LoadOpenings(TreeNode repertoireNode, List<OpeningMove> moves)
@@ -212,7 +347,7 @@ namespace Chess_Openings_Coach
                 var openingNode = new TreeNode(move.ToString()) { Tag = move };
                 openingNode.Checked = move.Selected;
                 repertoireNode.Nodes.Add(openingNode);
-                if(move.Children.Count > 0)
+                if (move.Children.Count > 0)
                 {
                     LoadOpenings(openingNode, move.Children);
                 }
@@ -290,7 +425,7 @@ namespace Chess_Openings_Coach
                 try
                 {
                     this.Book.Save();
-                    enregistrerToolStripMenuItem.Enabled = true;
+                    SaveToolStripMenuItem.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -321,48 +456,6 @@ namespace Chess_Openings_Coach
                 ShowError(ex);
             }
             return null;
-        }
-
-        private void ChangeQuizSelection(TreeNode selectedNode)
-        {
-            try
-            {
-                var nodeType = selectedNode.Tag.GetType();
-                if(nodeType == typeof(OpeningMove))
-                {
-                    var move = (OpeningMove)selectedNode.Tag;
-                    move.Selected = selectedNode.Checked;
-                    if (selectedNode.Checked)
-                    {
-                        //  Select all parent nodes
-                        var parentNode = selectedNode.Parent;
-                        if(parentNode != null && parentNode.Tag.GetType() == typeof(OpeningMove))
-                        {
-                            parentNode.Checked = true;
-                        }
-                    }
-                    else
-                    {
-                        //  Unselect all children nodes
-                        if(selectedNode.Nodes.Count > 0)
-                        {
-                            foreach (TreeNode childNode in selectedNode.Nodes)  
-                            {
-                                childNode.Checked = false;
-                            }
-                        }
-                    }
-                }
-                else if(nodeType == typeof(OpeningRepertoire))
-                {
-                    var repertoire = (OpeningRepertoire)selectedNode.Tag;
-                    repertoire.Selected = selectedNode.Checked;
-                }                
-            }
-            catch (Exception ex)
-            {
-                ShowError(ex);
-            }
         }
 
         private void ShowContextMenuForBook()
@@ -448,30 +541,45 @@ namespace Chess_Openings_Coach
 
         #endregion Context Menu
 
-        #region Menu
+        #region MainMenu
 
-        private void enregistrerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CreateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeMode(WorkingMode.Create);
+        }
+
+        private void LearnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeMode(WorkingMode.Learn);
+        }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Save();
         }
 
-        private void enregistrersousToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveAs();
         }
 
-        private void ouvrirToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadBook();
         }
 
-        private void quitterToolStripMenuItem_Click(object sender, EventArgs e)
+        private void QuitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        private void QuizToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeMode(WorkingMode.Quiz);
+        }
 
-        #endregion Menu
+
+        #endregion MainMenu
 
         #region TreeView Repertoire
 

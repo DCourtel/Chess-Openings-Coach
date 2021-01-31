@@ -127,12 +127,12 @@
     <value>Rename…</value>
   </data>
   <data name="trv_BlackRepertoire" xml:space="preserve">
-    <value>Black Repertoire</value>
+    <value>Blacks’ Repertoire</value>
   </data>
   <data name="trv_DefaultBook" xml:space="preserve">
     <value>Default Book</value>
   </data>
   <data name="trv_WhiteRepertoire" xml:space="preserve">
-    <value>White Repertoire</value>
+    <value>Whites’ Repertoire</value>
   </data>
 </root>

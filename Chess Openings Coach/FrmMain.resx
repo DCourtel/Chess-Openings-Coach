@@ -519,7 +519,7 @@
     <value>121, 17</value>
   </metadata>
   <data name="CtxMnuRepertoire.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 26</value>
+    <value>61, 4</value>
   </data>
   <data name="&gt;&gt;CtxMnuRepertoire.Name" xml:space="preserve">
     <value>CtxMnuRepertoire</value>
@@ -706,7 +706,7 @@
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Chess Opening Coach</value>
+    <value>Chess Openings Coach</value>
   </data>
   <data name="&gt;&gt;fichierToolStripMenuItem.Name" xml:space="preserve">
     <value>fichierToolStripMenuItem</value>

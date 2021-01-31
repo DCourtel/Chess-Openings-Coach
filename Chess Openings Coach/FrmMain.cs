@@ -22,6 +22,7 @@ namespace Chess_Openings_Coach
 
         public FrmMain()
         {
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             InitializeComponent();
             CreateDefaultBook();
             CreateContextMenu();

@@ -88,7 +88,7 @@ namespace Chess_Openings_Coach.Internationalization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Black Repertoire.
+        ///   Recherche une chaîne localisée semblable à Blacks’ Repertoire.
         /// </summary>
         internal static string trv_BlackRepertoire {
             get {
@@ -106,7 +106,7 @@ namespace Chess_Openings_Coach.Internationalization {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à White Repertoire.
+        ///   Recherche une chaîne localisée semblable à Whites’ Repertoire.
         /// </summary>
         internal static string trv_WhiteRepertoire {
             get {

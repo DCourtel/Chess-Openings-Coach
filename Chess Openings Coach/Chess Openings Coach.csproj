@@ -66,6 +66,12 @@
     <Compile Include="ChessOpeningInfo.Designer.cs">
       <DependentUpon>ChessOpeningInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmGameStatisticsEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGameStatisticsEditor.Designer.cs">
+      <DependentUpon>FrmGameStatisticsEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,12 @@
     <Compile Include="FrmRenameBook.Designer.cs">
       <DependentUpon>FrmRenameBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameStatisticsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GameStatisticsControl.Designer.cs">
+      <DependentUpon>GameStatisticsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Internationalization\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -87,6 +99,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ChessOpeningInfo.resx">
       <DependentUpon>ChessOpeningInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGameStatisticsEditor.resx">
+      <DependentUpon>FrmGameStatisticsEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.fr.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>

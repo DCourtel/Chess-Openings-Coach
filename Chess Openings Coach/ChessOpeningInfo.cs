@@ -120,6 +120,15 @@ namespace Chess_Openings_Coach
 
         #endregion Methods
 
+        private void gameStatisticsControl1_DoubleClick(object sender, EventArgs e)
+        {
+            var gameStatEditor = new FrmGameStatisticsEditor(gameStatisticsControl1.GameCount, gameStatisticsControl1.WhitePercent, gameStatisticsControl1.NullPercent);
+            if (gameStatEditor.ShowDialog() == DialogResult.OK)
+            {
+                gameStatisticsControl1.SetStatistics(gameStatEditor.GameCount, gameStatEditor.WhiteCount, gameStatEditor.DrawCount);
+            }
+        }
+
         private void TxtBx_TextChanged(object sender, EventArgs e)
         {
             if (!_disableUpdate)

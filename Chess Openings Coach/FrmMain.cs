@@ -19,6 +19,7 @@ namespace Chess_Openings_Coach
         private const string _ctxMnuLoadNewBook = "Load new book…";
         private const string _ctxMnuRename = "Rename…";
         private const string _ctxMnuDelete = "Delete";
+        private Random _rnd = new Random(DateTime.Now.Millisecond);
 
         private enum WorkingMode
         {
@@ -76,6 +77,11 @@ namespace Chess_Openings_Coach
         /// Gets or sets the currently selected repertoire.
         /// </summary>
         private OpeningRepertoire SelectedRepertoire { get; set; }
+
+        /// <summary>
+        /// Gets or sets for which color the user is learning/quizzing.
+        /// </summary>
+        private ChessColor WorkColor { get; set; } = ChessColor.White;
 
         /// <summary>
         /// Gets or sets the behavior of the application.
@@ -146,10 +152,10 @@ namespace Chess_Openings_Coach
                         break;
                     case _ctxMnuDelete:
                         CtxMnuRepertoire.Hide();
-                        if(MessageBox.Show(Translate("Msg_SureToDelete"), 
-                            Translate("Msg_Confirmation"), 
-                            MessageBoxButtons.YesNo, 
-                            MessageBoxIcon.Question, 
+                        if (MessageBox.Show(Translate("Msg_SureToDelete"),
+                            Translate("Msg_Confirmation"),
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question,
                             MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
                             try
@@ -213,7 +219,7 @@ namespace Chess_Openings_Coach
                 OpeningMove move = (OpeningMove)childNode.Tag;
                 childNode.Checked = isChecked;
                 move.Selected = isChecked;
-                if(childNode.Nodes.Count > 0) { ChangeAllChildNodesSelection(childNode, isChecked); }
+                if (childNode.Nodes.Count > 0) { ChangeAllChildNodesSelection(childNode, isChecked); }
             }
         }
 
@@ -231,6 +237,7 @@ namespace Chess_Openings_Coach
                     CreateToolStripMenuItem.Checked = false;
                     LearnToolStripMenuItem.Checked = true;
                     QuizToolStripMenuItem.Checked = false;
+                    SetupLearningMode();
                     break;
                 case WorkingMode.Quiz:
                     CreateToolStripMenuItem.Checked = false;
@@ -305,7 +312,7 @@ namespace Chess_Openings_Coach
                     ChangeAllChildNodesSelection(selectedNode, selectedNode.Checked);
                     _updatingSelection = false;
                 }
-                else if(nodeType == typeof(OpeningBook))
+                else if (nodeType == typeof(OpeningBook))
                 {
                     var blackRepertoire = (OpeningRepertoire)_blackRepertoireNode.Tag;
                     var whiteRepertoire = (OpeningRepertoire)_whiteRepertoireNode.Tag;
@@ -315,7 +322,7 @@ namespace Chess_Openings_Coach
                     _updatingSelection = true;
                     _whiteRepertoireNode.Checked = selectedNode.Checked;
                     _blackRepertoireNode.Checked = selectedNode.Checked;
-                    ChangeAllChildNodesSelection(_whiteRepertoireNode , selectedNode.Checked);
+                    ChangeAllChildNodesSelection(_whiteRepertoireNode, selectedNode.Checked);
                     ChangeAllChildNodesSelection(_blackRepertoireNode, selectedNode.Checked);
                     _updatingSelection = false;
                 }
@@ -335,6 +342,28 @@ namespace Chess_Openings_Coach
             if (childNode == _blackRepertoireNode && _blackRepertoireNode.Tag != null) { return (OpeningRepertoire)_blackRepertoireNode.Tag; }
 
             return GetParentRepertoire(childNode.Parent);
+        }
+
+        private TreeNode GetRandomEnabledChildNode(TreeNode parentNode)
+        {
+            var enabledChildNodes = new List<TreeNode>();
+            foreach (TreeNode childNode in parentNode.Nodes)
+            {
+                if (childNode.Checked)
+                {
+                    enabledChildNodes.Add(childNode);
+                }
+            }
+            if (enabledChildNodes.Count > 0)
+            {
+                return enabledChildNodes[GetRandomNumber(0, enabledChildNodes.Count)];
+            }
+            return null;
+        }
+
+        private int GetRandomNumber(int min, int max)
+        {
+            return _rnd.Next(min, max);
         }
 
         private string Translate(string text)
@@ -364,6 +393,7 @@ namespace Chess_Openings_Coach
                     this.Book = OpeningBook.LoadFromFile(loadFile.FileName);
                     LoadBook(this.Book);
                     SaveToolStripMenuItem.Enabled = true;
+                    QuitToolStripMenuItem.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -514,6 +544,43 @@ namespace Chess_Openings_Coach
             return null;
         }
 
+        private void SetupLearningMode()
+        {
+            if (TrvRepertoires.SelectedNode == null || TrvRepertoires.SelectedNode == TrvRepertoires.Nodes[0])
+            {
+                //  If the root node is selected, choose Black or White randomly
+                TrvRepertoires.SelectedNode = (GetRandomNumber(0, 10) <= 4 ? _whiteRepertoireNode : _blackRepertoireNode);
+                chessboard1.Enabled = true;
+            }
+            SelectedRepertoire = GetParentRepertoire(TrvRepertoires.SelectedNode);
+            WorkColor = SelectedRepertoire.Color;
+            SetupLearningMode(WorkColor);
+        }
+
+        private void SetupLearningMode(ChessColor color)
+        {
+            TrvRepertoires.SelectedNode = (color == ChessColor.White ? _whiteRepertoireNode : _blackRepertoireNode);
+            NodeSelected(TrvRepertoires.SelectedNode);
+            if (color == ChessColor.Black)
+            {
+                chessboard1.BoardDirection = BoardDirection.WhiteOnTop;
+                var childNode = GetRandomEnabledChildNode(TrvRepertoires.SelectedNode);
+                if (childNode == null)
+                {
+                    MessageBox.Show(Translate("Msg_EnableAtLeastOneLine"));
+                }
+                else
+                {
+                    TrvRepertoires.SelectedNode = childNode;
+                    NodeSelected(childNode);
+                }
+            }
+            else
+            {
+                chessboard1.BoardDirection = BoardDirection.BlackOnTop;
+            }
+        }
+
         private void ShowContextMenuForBook()
         {
             try
@@ -528,7 +595,7 @@ namespace Chess_Openings_Coach
                 ShowError(ex);
             }
         }
-
+        
         private void ShowContextMenuForMove()
         {
             try
@@ -696,13 +763,60 @@ namespace Chess_Openings_Coach
             if (existingNode != null)
             {
                 TrvRepertoires.SelectedNode = existingNode;
+                NodeSelected(existingNode);
+                switch (WorkMode)
+                {
+                    case WorkingMode.Create:
+                        break;
+                    case WorkingMode.Learn:
+                        var childNode = GetRandomEnabledChildNode(existingNode);
+                        if (childNode == null)
+                        {
+                            if(MessageBox.Show(Translate("Msg_NomoreChildNode"),"", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                            {
+                                SetupLearningMode(WorkColor);
+                            }
+                        }
+                        else
+                        {
+                            TrvRepertoires.SelectedNode = childNode;
+                            NodeSelected(childNode);
+                            if (GetRandomEnabledChildNode(childNode) == null)
+                            {
+                                //  No more moves for the user
+                                if (MessageBox.Show(Translate("Msg_NomoreChildNode"), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                                {
+                                    SetupLearningMode(WorkColor);
+                                }
+                            }
+                        }
+                        break;
+                    case WorkingMode.Quiz:
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
-                var newOpening = AddMove(move);
-                if (newOpening != null)
+                switch (WorkMode)
                 {
-                    ShowOpeningInfo(newOpening);
+                    case WorkingMode.Create:
+                        var newOpening = AddMove(move);
+                        if (newOpening != null)
+                        {
+                            ShowOpeningInfo(newOpening);
+                        }
+                        break;
+                    case WorkingMode.Learn:
+                        //  Played a wrong move
+                        MessageBox.Show(Translate("Msg_NotChildMove"), Translate("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        chessboard1.UndoMove();
+                        break;
+                    case WorkingMode.Quiz:
+                        break;
+                    default:
+                        break;
                 }
             }
         }

@@ -220,7 +220,7 @@
     <value>chessOpeningInfo1</value>
   </data>
   <data name="&gt;&gt;chessOpeningInfo1.Type" xml:space="preserve">
-    <value>Chess_Openings_Coach.ChessOpeningInfo, Chess Openings Coach, Version=1.0.2101.31, Culture=neutral, PublicKeyToken=null</value>
+    <value>Chess_Openings_Coach.ChessOpeningInfo, Chess Openings Coach, Version=1.0.2102.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;chessOpeningInfo1.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -534,19 +534,19 @@
     <value>&amp;Edition</value>
   </data>
   <data name="CreateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="CreateToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Create</value>
   </data>
   <data name="LearnToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="LearnToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Learn</value>
   </data>
   <data name="QuizToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="QuizToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Quiz</value>
@@ -610,6 +610,9 @@
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>58</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>

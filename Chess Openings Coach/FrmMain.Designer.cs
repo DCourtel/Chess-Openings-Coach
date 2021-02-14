@@ -35,7 +35,6 @@ namespace Chess_Openings_Coach
             this.TrvRepertoires = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chessboard1 = new ChessboardControl.Chessboard();
-            this.chessOpeningInfo1 = new Chess_Openings_Coach.ChessOpeningInfo();
             this.MnuMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +60,7 @@ namespace Chess_Openings_Coach
             this.aideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CtxMnuRepertoire = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.chessOpeningInfo1 = new Chess_Openings_Coach.ChessOpeningInfo();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -105,19 +105,6 @@ namespace Chess_Openings_Coach
             this.chessboard1.Name = "chessboard1";
             this.chessboard1.ShowVisualHints = false;
             this.chessboard1.OnPieceMoved += new ChessboardControl.Chessboard.PieceMovedEventHandler(this.chessboard1_OnPieceMoved);
-            // 
-            // chessOpeningInfo1
-            // 
-            this.chessOpeningInfo1.BackColor = System.Drawing.SystemColors.Window;
-            this.chessOpeningInfo1.Comment = "";
-            resources.ApplyResources(this.chessOpeningInfo1, "chessOpeningInfo1");
-            this.chessOpeningInfo1.Eco = "";
-            this.chessOpeningInfo1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chessOpeningInfo1.Name = "chessOpeningInfo1";
-            this.chessOpeningInfo1.OpeningMove = "";
-            this.chessOpeningInfo1.OpeningName = "";
-            this.chessOpeningInfo1.UseDarkTheme = false;
-            this.chessOpeningInfo1.OnInfoChanged += new System.EventHandler(this.chessOpeningInfo1_OnInfoChaned);
             // 
             // MnuMain
             // 
@@ -285,6 +272,19 @@ namespace Chess_Openings_Coach
             resources.ApplyResources(this.CtxMnuRepertoire, "CtxMnuRepertoire");
             this.CtxMnuRepertoire.Name = "CtxMnuRepertoire";
             this.CtxMnuRepertoire.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CtxMnuRepertoire_ItemClicked);
+            // 
+            // chessOpeningInfo1
+            // 
+            this.chessOpeningInfo1.BackColor = System.Drawing.SystemColors.Window;
+            this.chessOpeningInfo1.Comment = "";
+            resources.ApplyResources(this.chessOpeningInfo1, "chessOpeningInfo1");
+            this.chessOpeningInfo1.Eco = "";
+            this.chessOpeningInfo1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chessOpeningInfo1.Name = "chessOpeningInfo1";
+            this.chessOpeningInfo1.OpeningMove = "";
+            this.chessOpeningInfo1.OpeningName = "";
+            this.chessOpeningInfo1.UseDarkTheme = false;
+            this.chessOpeningInfo1.OnInfoChanged += new System.EventHandler(this.chessOpeningInfo1_OnInfoChaned);
             // 
             // FrmMain
             // 

@@ -129,6 +129,20 @@
   <data name="Msg_Confirmation" xml:space="preserve">
     <value>Confirmation</value>
   </data>
+  <data name="Msg_EnableAtLeastOneLine" xml:space="preserve">
+    <value>Veuillez sélectionner au moins une ligne d’ouverture.</value>
+  </data>
+  <data name="Msg_Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Msg_NomoreChildNode" xml:space="preserve">
+    <value>Il n’y a plus de coup disponible parmi les lignes d’ouverture sélectionnées.
+
+Voulez-vous reprendre depuis le début ?</value>
+  </data>
+  <data name="Msg_NotChildMove" xml:space="preserve">
+    <value>Ce coup ne correspond à aucun coup parmi les lignes d’ouverture sélectionnées.</value>
+  </data>
   <data name="Msg_SureToDelete" xml:space="preserve">
     <value>Est-vous sûre de vouloir supprimer cette ligne d’ouverture ?</value>
   </data>

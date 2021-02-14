@@ -117,42 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ctxMnu_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="ctxMnu_LoadNewBook" xml:space="preserve">
-    <value>Load new book…</value>
-  </data>
-  <data name="ctxMnu_Rename" xml:space="preserve">
-    <value>Rename…</value>
-  </data>
-  <data name="Msg_Confirmation" xml:space="preserve">
-    <value>Confirmation</value>
-  </data>
-  <data name="Msg_EnableAtLeastOneLine" xml:space="preserve">
-    <value>Please, enable at least one opening line.</value>
-  </data>
-  <data name="Msg_Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="Msg_NomoreChildNode" xml:space="preserve">
-    <value>There is no more child moves in the selected opening lines.
-
-Do you want to restart?</value>
-  </data>
-  <data name="Msg_NotChildMove" xml:space="preserve">
-    <value>This move doesn’t match with any move in the selected opening lines.</value>
-  </data>
-  <data name="Msg_SureToDelete" xml:space="preserve">
-    <value>Are you sure to want to delete this opening line?</value>
-  </data>
-  <data name="trv_BlackRepertoire" xml:space="preserve">
-    <value>Blacks’ Repertoire</value>
-  </data>
-  <data name="trv_DefaultBook" xml:space="preserve">
-    <value>Default Book</value>
-  </data>
-  <data name="trv_WhiteRepertoire" xml:space="preserve">
-    <value>Whites’ Repertoire</value>
-  </data>
 </root>

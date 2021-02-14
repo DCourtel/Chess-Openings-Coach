@@ -97,6 +97,44 @@ namespace Chess_Openings_Coach.Internationalization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Please, enable at least one opening line..
+        /// </summary>
+        internal static string Msg_EnableAtLeastOneLine {
+            get {
+                return ResourceManager.GetString("Msg_EnableAtLeastOneLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Error.
+        /// </summary>
+        internal static string Msg_Error {
+            get {
+                return ResourceManager.GetString("Msg_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à There is no more child moves in the selected opening lines.
+        ///
+        ///Do you want to restart?.
+        /// </summary>
+        internal static string Msg_NomoreChildNode {
+            get {
+                return ResourceManager.GetString("Msg_NomoreChildNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à This move doesn’t match with any move in the selected opening lines..
+        /// </summary>
+        internal static string Msg_NotChildMove {
+            get {
+                return ResourceManager.GetString("Msg_NotChildMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Are you sure to want to delete this opening line?.
         /// </summary>
         internal static string Msg_SureToDelete {

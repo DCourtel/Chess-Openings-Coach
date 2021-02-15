@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Chess_Openings_Coach
@@ -20,6 +13,7 @@ namespace Chess_Openings_Coach
             NupWhiteWon.Value = whiteWon;
             NupDraw.Value = drawCount;
             NupBlackWon.Value = 100 - (whiteWon + drawCount);
+            NupGameCount.Focus();
         }
 
         #region Properties
@@ -36,8 +30,6 @@ namespace Chess_Openings_Coach
         #endregion Properties
 
         #region Events
-
-        #endregion Events
 
         private void NupGameCount_ValueChanged(object sender, EventArgs e)
         {
@@ -65,5 +57,12 @@ namespace Chess_Openings_Coach
         {
             DialogResult = DialogResult.Cancel;
         }
+
+        private void NupGameCount_Enter(object sender, EventArgs e)
+        {
+            (sender as NumericUpDown).Select(0, (sender as NumericUpDown).Text.Length);
+        }
+
+        #endregion Events
     }
 }

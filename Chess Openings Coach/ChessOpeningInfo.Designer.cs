@@ -111,12 +111,14 @@ namespace Chess_Openings_Coach
             // 
             this.gameStatisticsControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gameStatisticsControl1.GameCount = 1000000;
+            this.gameStatisticsControl1.GameCount = 0;
             this.gameStatisticsControl1.Location = new System.Drawing.Point(50, 56);
             this.gameStatisticsControl1.Name = "gameStatisticsControl1";
+            this.gameStatisticsControl1.NullPercent = 34;
             this.gameStatisticsControl1.Size = new System.Drawing.Size(375, 13);
             this.gameStatisticsControl1.TabIndex = 7;
             this.gameStatisticsControl1.Text = "gameStatisticsControl1";
+            this.gameStatisticsControl1.WhitePercent = 33;
             this.gameStatisticsControl1.DoubleClick += new System.EventHandler(this.gameStatisticsControl1_DoubleClick);
             // 
             // ChessOpeningInfo

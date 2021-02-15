@@ -625,6 +625,9 @@ namespace Chess_Openings_Coach
                 chessOpeningInfo1.OpeningMove = opening.Move.ToSAN;
                 chessOpeningInfo1.Comment = opening.Comment;
                 chessOpeningInfo1.SelectName();
+                chessOpeningInfo1.GameCount = opening.MoveStat.GameCount;
+                chessOpeningInfo1.WhitePercent = opening.MoveStat.WhiteStat;
+                chessOpeningInfo1.NullPercent = opening.MoveStat.NullStat;
             }
             catch (Exception ex)
             {
@@ -642,6 +645,9 @@ namespace Chess_Openings_Coach
                     selectedOpening.Name = chessOpeningInfo1.OpeningName;
                     selectedOpening.ECO = chessOpeningInfo1.Eco;
                     selectedOpening.Comment = chessOpeningInfo1.Comment;
+                    selectedOpening.MoveStat.GameCount = chessOpeningInfo1.GameCount;
+                    selectedOpening.MoveStat.WhiteStat = chessOpeningInfo1.WhitePercent;
+                    selectedOpening.MoveStat.NullStat = chessOpeningInfo1.NullPercent;
                     TrvRepertoires.SelectedNode.Text = selectedOpening.ToString();
                 }
             }

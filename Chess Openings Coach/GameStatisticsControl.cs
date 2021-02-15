@@ -42,7 +42,7 @@ namespace Chess_Openings_Coach
 
         protected override Size DefaultSize { get { return new Size(300, 13); } }
 
-        private int _gameCount = 1_000_000;
+        private int _gameCount = 0;
         /// <summary>
         /// Gets or sets the total number of game played.
         /// </summary>
@@ -139,19 +139,47 @@ namespace Chess_Openings_Coach
 
                 //  Draw Game Count
                 g.FillRectangle(Brushes.Black, gameCountRectF);
-                if (gameCountTextSize.Width < gameCountRectF.Width) { g.DrawString(GameCount.ToString("0,0"), this.Font, Brushes.Gainsboro, gameCountTextRectF); }
+                if (GameCount == 0)
+                {
+                    g.DrawString("??", this.Font, Brushes.Gainsboro, gameCountTextRectF);
+                }
+                else
+                {
+                    if (gameCountTextSize.Width < gameCountRectF.Width) { g.DrawString(GameCount.ToString("0,0"), this.Font, Brushes.Gainsboro, gameCountTextRectF); }
+                }
 
                 //  Draw White percentage
                 g.FillRectangle(_whiteBrush, whiteRectF);
-                if (whiteTextSize.Width < whiteRectF.Width) { g.DrawString($"{this.WhitePercent}%", this.Font, Brushes.Black, whiteTextRectF); }
+                if (GameCount == 0)
+                {
+                    g.DrawString("??", this.Font, Brushes.Black, whiteTextRectF);
+                }
+                else
+                {
+                    if (whiteTextSize.Width < whiteRectF.Width) { g.DrawString($"{this.WhitePercent}%", this.Font, Brushes.Black, whiteTextRectF); }
+                }
 
                 //  Draw null percentage
                 g.FillRectangle(_nullBrush, nullRectF);
-                if (nullTextSize.Width < nullRectF.Width) { g.DrawString($"{this.NullPercent}%", this.Font, Brushes.Gainsboro, nullTextRectF); }
+                if (GameCount == 0)
+                {
+                    g.DrawString("??", this.Font, Brushes.Gainsboro, nullTextRectF);
+                }
+                else
+                {
+                    if (nullTextSize.Width < nullRectF.Width) { g.DrawString($"{this.NullPercent}%", this.Font, Brushes.Gainsboro, nullTextRectF); }
+                }
 
                 //  Draw Blacks percentage
                 g.FillRectangle(_blackBrush, blackRectF);
-                if (blackTextSize.Width < blackRectF.Width) { g.DrawString($"{this.BlackPercent}%", this.Font, Brushes.Gainsboro, blackTextRectF); }
+                if (GameCount == 0)
+                {
+                    g.DrawString("??", this.Font, Brushes.Gainsboro, blackTextRectF);
+                }
+                else
+                {
+                    if (blackTextSize.Width < blackRectF.Width) { g.DrawString($"{this.BlackPercent}%", this.Font, Brushes.Gainsboro, blackTextRectF); }
+                }
 
                 g.Flush();
             }

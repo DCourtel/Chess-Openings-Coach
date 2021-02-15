@@ -31,6 +31,46 @@ namespace Chess_Openings_Coach
             }
         }
 
+        public int GameCount
+        {
+            get { return gameStatisticsControl1.GameCount; }
+            set
+            {
+                if(value != gameStatisticsControl1.GameCount)
+                {
+                    _disableUpdate = true;
+                    gameStatisticsControl1.GameCount = value;
+                    _disableUpdate = false;
+                }
+            }
+        }
+
+        public int WhitePercent
+        {
+            get { return gameStatisticsControl1.WhitePercent; }
+            set {
+                if (value != gameStatisticsControl1.WhitePercent)
+                { _disableUpdate = true;
+                    gameStatisticsControl1.WhitePercent = value;
+                    _disableUpdate = false;
+                }
+            }
+        }
+
+        public int NullPercent
+        {
+            get { return gameStatisticsControl1.NullPercent; }
+            set
+            {
+                if (value != gameStatisticsControl1.NullPercent)
+                {
+                    _disableUpdate = true;
+                    gameStatisticsControl1.NullPercent = value;
+                    _disableUpdate = false;
+                }
+            }
+        }
+
         public string Eco
         {
             get { return TxtBxECO.Text; }
@@ -126,6 +166,8 @@ namespace Chess_Openings_Coach
             if (gameStatEditor.ShowDialog() == DialogResult.OK)
             {
                 gameStatisticsControl1.SetStatistics(gameStatEditor.GameCount, gameStatEditor.WhiteCount, gameStatEditor.DrawCount);
+                if (!_disableUpdate)
+                { OnInfoChanged?.Invoke(this, new EventArgs()); }
             }
         }
 

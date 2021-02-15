@@ -53,7 +53,7 @@ namespace Chess_Openings_Coach
             this.BtnCancel.Location = new System.Drawing.Point(321, 148);
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(75, 23);
-            this.BtnCancel.TabIndex = 0;
+            this.BtnCancel.TabIndex = 10;
             this.BtnCancel.Text = "&Cancel";
             this.BtnCancel.UseVisualStyleBackColor = true;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
@@ -64,7 +64,7 @@ namespace Chess_Openings_Coach
             this.BtnOk.Location = new System.Drawing.Point(240, 148);
             this.BtnOk.Name = "BtnOk";
             this.BtnOk.Size = new System.Drawing.Size(75, 23);
-            this.BtnOk.TabIndex = 0;
+            this.BtnOk.TabIndex = 9;
             this.BtnOk.Text = "&Ok";
             this.BtnOk.UseVisualStyleBackColor = true;
             this.BtnOk.Click += new System.EventHandler(this.BtnOk_Click);
@@ -97,6 +97,7 @@ namespace Chess_Openings_Coach
             0,
             0});
             this.NupGameCount.ValueChanged += new System.EventHandler(this.NupGameCount_ValueChanged);
+            this.NupGameCount.Enter += new System.EventHandler(this.NupGameCount_Enter);
             // 
             // label2
             // 
@@ -105,7 +106,7 @@ namespace Chess_Openings_Coach
             this.label2.Location = new System.Drawing.Point(12, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Whites won:";
             // 
             // NupWhiteWon
@@ -114,13 +115,14 @@ namespace Chess_Openings_Coach
             this.NupWhiteWon.Location = new System.Drawing.Point(86, 70);
             this.NupWhiteWon.Name = "NupWhiteWon";
             this.NupWhiteWon.Size = new System.Drawing.Size(91, 20);
-            this.NupWhiteWon.TabIndex = 2;
+            this.NupWhiteWon.TabIndex = 4;
             this.NupWhiteWon.Value = new decimal(new int[] {
             33,
             0,
             0,
             0});
             this.NupWhiteWon.ValueChanged += new System.EventHandler(this.NupWhiteWon_ValueChanged);
+            this.NupWhiteWon.Enter += new System.EventHandler(this.NupGameCount_Enter);
             // 
             // label3
             // 
@@ -129,7 +131,7 @@ namespace Chess_Openings_Coach
             this.label3.Location = new System.Drawing.Point(12, 98);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 5;
             this.label3.Text = "Draw count:";
             // 
             // NupDraw
@@ -138,13 +140,14 @@ namespace Chess_Openings_Coach
             this.NupDraw.Location = new System.Drawing.Point(86, 96);
             this.NupDraw.Name = "NupDraw";
             this.NupDraw.Size = new System.Drawing.Size(91, 20);
-            this.NupDraw.TabIndex = 2;
+            this.NupDraw.TabIndex = 6;
             this.NupDraw.Value = new decimal(new int[] {
             34,
             0,
             0,
             0});
             this.NupDraw.ValueChanged += new System.EventHandler(this.NupDraw_ValueChanged);
+            this.NupDraw.Enter += new System.EventHandler(this.NupGameCount_Enter);
             // 
             // label4
             // 
@@ -153,7 +156,7 @@ namespace Chess_Openings_Coach
             this.label4.Location = new System.Drawing.Point(12, 124);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 13);
-            this.label4.TabIndex = 1;
+            this.label4.TabIndex = 7;
             this.label4.Text = "Black won:";
             // 
             // NupBlackWon
@@ -163,7 +166,7 @@ namespace Chess_Openings_Coach
             this.NupBlackWon.Location = new System.Drawing.Point(86, 122);
             this.NupBlackWon.Name = "NupBlackWon";
             this.NupBlackWon.Size = new System.Drawing.Size(91, 20);
-            this.NupBlackWon.TabIndex = 2;
+            this.NupBlackWon.TabIndex = 8;
             this.NupBlackWon.Value = new decimal(new int[] {
             33,
             0,
@@ -177,9 +180,12 @@ namespace Chess_Openings_Coach
             this.gameStatisticsControl1.GameCount = 1000000;
             this.gameStatisticsControl1.Location = new System.Drawing.Point(12, 12);
             this.gameStatisticsControl1.Name = "gameStatisticsControl1";
+            this.gameStatisticsControl1.NullPercent = 34;
             this.gameStatisticsControl1.Size = new System.Drawing.Size(384, 13);
-            this.gameStatisticsControl1.TabIndex = 3;
+            this.gameStatisticsControl1.TabIndex = 0;
+            this.gameStatisticsControl1.TabStop = false;
             this.gameStatisticsControl1.Text = "gameStatisticsControl1";
+            this.gameStatisticsControl1.WhitePercent = 33;
             // 
             // FrmGameStatisticsEditor
             // 

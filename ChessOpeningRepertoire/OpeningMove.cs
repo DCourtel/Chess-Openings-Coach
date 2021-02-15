@@ -38,7 +38,7 @@ namespace ChessOpeningRepertoire
         public int MoveIndex { get; set; }
 
         [JsonProperty(Order = 7)]
-        public MoveStatistics MoveStat { get; set; }
+        public MoveStatistics MoveStat { get; set; } = new MoveStatistics(0, 33,34);
 
         [JsonProperty(Order = 1)]
         public string Name { get; set; }

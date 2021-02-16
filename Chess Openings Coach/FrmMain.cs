@@ -28,7 +28,7 @@ namespace Chess_Openings_Coach
             Quiz
         }
 
-        private System.Resources.ResourceManager resMan = new System.Resources.ResourceManager("Chess_Openings_Coach.Internationalization.Resources", typeof(FrmMain).Assembly);
+        private readonly System.Resources.ResourceManager resMan = new System.Resources.ResourceManager("Chess_Openings_Coach.Internationalization.Resources", typeof(FrmMain).Assembly);
 
         public FrmMain()
         {
@@ -36,7 +36,7 @@ namespace Chess_Openings_Coach
             InitializeComponent();
             CreateDefaultBook();
             CreateContextMenu();
-            ChangeTheme(IsDarkThemeEnable);
+            ChangeTheme(IsDarkThemeEnabled);
         }
 
         #region Properties
@@ -47,9 +47,9 @@ namespace Chess_Openings_Coach
         private OpeningBook Book { get; set; }
 
         /// <summary>
-        /// Gets if dark mode is enable.
+        /// Gets if dark mode is enabled.
         /// </summary>
-        private bool IsDarkThemeEnable
+        private bool IsDarkThemeEnabled
         {
             get
             {
@@ -103,7 +103,11 @@ namespace Chess_Openings_Coach
                         var moveColor = chessboard1.Turn == ChessColor.White ? ChessColor.Black : ChessColor.White;
                         var currentMove = (OpeningMove)TrvRepertoires.SelectedNode.Tag;
                         var moveIndex = currentMove.MoveIndex + (moveColor == ChessColor.Black ? 0 : 1);
-                        var newMove = new OpeningMove(new OpeningHalfMove(move), moveColor, moveIndex, chessboard1.GetFEN());
+                        var newMove = new OpeningMove(new OpeningHalfMove(move), moveColor, moveIndex, chessboard1.GetFEN())
+                        {
+                            Name = currentMove.Name,
+                            ECO = currentMove.ECO
+                        };
                         var newNode = new TreeNode(newMove.ToString()) { Tag = newMove };
                         TrvRepertoires.SelectedNode.Nodes.Add(newNode);
                         TrvRepertoires.SelectedNode = newNode;
@@ -623,6 +627,7 @@ namespace Chess_Openings_Coach
                 chessOpeningInfo1.OpeningName = opening.Name;
                 chessOpeningInfo1.Eco = opening.ECO;
                 chessOpeningInfo1.OpeningMove = opening.Move.ToSAN;
+                chessOpeningInfo1.MoveAnnotation = opening.MoveAnnotation;
                 chessOpeningInfo1.Comment = opening.Comment;
                 chessOpeningInfo1.SelectName();
                 chessOpeningInfo1.GameCount = opening.MoveStat.GameCount;
@@ -644,6 +649,7 @@ namespace Chess_Openings_Coach
                     var selectedOpening = (OpeningMove)TrvRepertoires.SelectedNode.Tag;
                     selectedOpening.Name = chessOpeningInfo1.OpeningName;
                     selectedOpening.ECO = chessOpeningInfo1.Eco;
+                    selectedOpening.MoveAnnotation = chessOpeningInfo1.MoveAnnotation;
                     selectedOpening.Comment = chessOpeningInfo1.Comment;
                     selectedOpening.MoveStat.GameCount = chessOpeningInfo1.GameCount;
                     selectedOpening.MoveStat.WhiteStat = chessOpeningInfo1.WhitePercent;

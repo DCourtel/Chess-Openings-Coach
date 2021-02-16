@@ -16,7 +16,7 @@ namespace ChessOpeningRepertoire
 
         #region Properties
 
-        [JsonProperty(Order = 8)]
+        [JsonProperty(Order = 9)]
         public List<OpeningMove> Children { get; } = new List<OpeningMove>();
 
         [JsonProperty(Order = 3)]
@@ -31,14 +31,17 @@ namespace ChessOpeningRepertoire
         [JsonProperty(Order = 5)]
         public OpeningHalfMove Move { get; set; }
 
+        [JsonProperty(Order = 6)]
+        public int MoveAnnotation { get; set; } = -1;
+
         [JsonProperty(Order = 2, DefaultValueHandling = DefaultValueHandling.Include)]
         public ChessColor MoveColor { get; set; }
 
-        [JsonProperty(Order = 6)]
+        [JsonProperty(Order = 7)]
         public int MoveIndex { get; set; }
 
-        [JsonProperty(Order = 7)]
-        public MoveStatistics MoveStat { get; set; } = new MoveStatistics(0, 33,34);
+        [JsonProperty(Order = 8)]
+        public MoveStatistics MoveStat { get; set; } = new MoveStatistics(0, 33, 34);
 
         [JsonProperty(Order = 1)]
         public string Name { get; set; }
@@ -46,7 +49,7 @@ namespace ChessOpeningRepertoire
         /// <summary>
         /// Gets or sets if the move can be include in quizzes.
         /// </summary>
-        [JsonProperty(Order = 9)]        
+        [JsonProperty(Order = 10)]
         public bool Selected { get; set; }
 
         #endregion Properties
@@ -55,7 +58,7 @@ namespace ChessOpeningRepertoire
 
         public override string ToString()
         {
-            return $"{MoveIndex}.{(MoveColor == ChessColor.Black ? ".." : "")}{Move}{(!string.IsNullOrWhiteSpace(ECO) && !string.IsNullOrWhiteSpace(Name)?$" [{ECO}-{Name}]":"")}";
+            return $"{MoveIndex}.{(MoveColor == ChessColor.Black ? ".." : "")}{Move}{(!string.IsNullOrWhiteSpace(ECO) && !string.IsNullOrWhiteSpace(Name) ? $" [{ECO}-{Name}]" : "")}";
         }
 
         #endregion Methods

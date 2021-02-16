@@ -17,6 +17,20 @@ namespace Chess_Openings_Coach
 
         #region Properties
 
+        public int MoveAnnotation
+        {
+            get { return CmbBxAnnotation.SelectedIndex; }
+            set
+            {
+                if (value != CmbBxAnnotation.SelectedIndex)
+                {
+                    _disableUpdate = true;
+                    CmbBxAnnotation.SelectedIndex = value;
+                    _disableUpdate = false;
+                }
+            }
+        }
+
         public string Comment
         {
             get { return TxtBxComment.Text; }
@@ -36,7 +50,7 @@ namespace Chess_Openings_Coach
             get { return gameStatisticsControl1.GameCount; }
             set
             {
-                if(value != gameStatisticsControl1.GameCount)
+                if (value != gameStatisticsControl1.GameCount)
                 {
                     _disableUpdate = true;
                     gameStatisticsControl1.GameCount = value;
@@ -48,9 +62,11 @@ namespace Chess_Openings_Coach
         public int WhitePercent
         {
             get { return gameStatisticsControl1.WhitePercent; }
-            set {
+            set
+            {
                 if (value != gameStatisticsControl1.WhitePercent)
-                { _disableUpdate = true;
+                {
+                    _disableUpdate = true;
                     gameStatisticsControl1.WhitePercent = value;
                     _disableUpdate = false;
                 }
@@ -160,6 +176,11 @@ namespace Chess_Openings_Coach
 
         #endregion Methods
 
+        private void CmbBxAnnotation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!_disableUpdate)             { OnInfoChanged?.Invoke(this, new EventArgs()); }
+        }
+
         private void gameStatisticsControl1_DoubleClick(object sender, EventArgs e)
         {
             var gameStatEditor = new FrmGameStatisticsEditor(gameStatisticsControl1.GameCount, gameStatisticsControl1.WhitePercent, gameStatisticsControl1.NullPercent);
@@ -173,8 +194,7 @@ namespace Chess_Openings_Coach
 
         private void TxtBx_TextChanged(object sender, EventArgs e)
         {
-            if (!_disableUpdate)
-            { OnInfoChanged?.Invoke(this, new EventArgs()); }
+            if (!_disableUpdate)            { OnInfoChanged?.Invoke(this, new EventArgs()); }
         }
 
         public event EventHandler OnInfoChanged;

@@ -38,12 +38,14 @@ namespace Chess_Openings_Coach
 
         private void NupWhiteWon_ValueChanged(object sender, EventArgs e)
         {
+            if (NupWhiteWon.Value + NupDraw.Value > 100) { NupDraw.Value = 0; }
             NupBlackWon.Value = 100 - (NupWhiteWon.Value + NupDraw.Value);
             gameStatisticsControl1.SetStatistics((int)NupGameCount.Value, (int)NupWhiteWon.Value, (int)NupDraw.Value);
         }
 
         private void NupDraw_ValueChanged(object sender, EventArgs e)
         {
+            if (NupWhiteWon.Value + NupDraw.Value > 100) { NupWhiteWon.Value = 0; }
             NupBlackWon.Value = 100 - (NupWhiteWon.Value + NupDraw.Value);
             gameStatisticsControl1.SetStatistics((int)NupGameCount.Value, (int)NupWhiteWon.Value, (int)NupDraw.Value);
         }

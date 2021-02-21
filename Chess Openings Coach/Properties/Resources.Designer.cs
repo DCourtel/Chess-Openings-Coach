@@ -63,9 +63,29 @@ namespace Chess_Openings_Coach.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CollapseAll_32 {
+            get {
+                object obj = ResourceManager.GetObject("CollapseAll_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap delete_32 {
             get {
                 object obj = ResourceManager.GetObject("delete_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExpandAll_32 {
+            get {
+                object obj = ResourceManager.GetObject("ExpandAll_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,6 +106,16 @@ namespace Chess_Openings_Coach.Properties {
         internal static System.Drawing.Bitmap pen_32 {
             get {
                 object obj = ResourceManager.GetObject("pen_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap selectAll_32 {
+            get {
+                object obj = ResourceManager.GetObject("selectAll_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

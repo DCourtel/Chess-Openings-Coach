@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ctxMnu_CollapseAllChildren" xml:space="preserve">
+    <value>Collapse all child nodes</value>
+  </data>
   <data name="ctxMnu_Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="ctxMnu_ExpandAllChildren" xml:space="preserve">
+    <value>Expand all child nodes</value>
   </data>
   <data name="ctxMnu_LoadNewBook" xml:space="preserve">
     <value>Load new book…</value>
   </data>
   <data name="ctxMnu_Rename" xml:space="preserve">
     <value>Rename…</value>
+  </data>
+  <data name="ctxMnu_SelectAllChildren" xml:space="preserve">
+    <value>Select all child nodes</value>
+  </data>
+  <data name="ctxMnu_UnselectAllChildren" xml:space="preserve">
+    <value>Unselect all child nodes</value>
   </data>
   <data name="Msg_Confirmation" xml:space="preserve">
     <value>Confirmation</value>

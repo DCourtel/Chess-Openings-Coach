@@ -19,6 +19,8 @@ namespace Chess_Openings_Coach
         private const string _ctxMnuLoadNewBook = "Load new book…";
         private const string _ctxMnuRename = "Rename…";
         private const string _ctxMnuDelete = "Delete";
+        private const string _selectAllChildren = "SelectAllChildren";
+        private const string _expandAllChildren = "ExpandAllChildren";
         private Random _rnd = new Random(DateTime.Now.Millisecond);
 
         private enum WorkingMode
@@ -154,6 +156,19 @@ namespace Chess_Openings_Coach
                             TrvRepertoires.Nodes[0].Text = newNameDlg.NewName;
                         }
                         break;
+                    case _selectAllChildren:
+                        _updatingSelection = true;
+                        ChangeAllChildNodesSelection(TrvRepertoires.SelectedNode, !TrvRepertoires.SelectedNode.Checked);
+                        TrvRepertoires.SelectedNode.Checked = !TrvRepertoires.SelectedNode.Checked;
+                        TrvRepertoires.SelectedNode.ExpandAll();
+                        _updatingSelection = false;
+                        break;
+                    case _expandAllChildren:
+                        if (TrvRepertoires.SelectedNode.IsExpanded)
+                        { TrvRepertoires.SelectedNode.Collapse(); }
+                        else
+                        { TrvRepertoires.SelectedNode.ExpandAll(); }
+                        break;
                     case _ctxMnuDelete:
                         CtxMnuRepertoire.Hide();
                         if (MessageBox.Show(Translate("Msg_SureToDelete"),
@@ -171,6 +186,7 @@ namespace Chess_Openings_Coach
 
                                 parentMove.Children.Remove(selectedMove);
                                 parentNode.Nodes.Remove(selectedNode);
+                                NodeSelected(parentNode);
                             }
                             catch (Exception ex)
                             {
@@ -190,18 +206,36 @@ namespace Chess_Openings_Coach
         {
             try
             {
-                ToolStripMenuItem loadNewBookItem = new ToolStripMenuItem(Translate("ctxMnu_LoadNewBook"), Properties.Resources.folder_open_32);
-                loadNewBookItem.Enabled = false;
-                loadNewBookItem.Name = _ctxMnuLoadNewBook;
-                ToolStripMenuItem renameItem = new ToolStripMenuItem(Translate("ctxMnu_Rename"), Properties.Resources.pen_32);
-                renameItem.Enabled = false;
-                renameItem.Name = _ctxMnuRename;
-                ToolStripMenuItem deleteItem = new ToolStripMenuItem(Translate("ctxMnu_Delete"), Properties.Resources.delete_32);
-                deleteItem.Enabled = false;
-                deleteItem.Name = _ctxMnuDelete;
+                ToolStripMenuItem loadNewBookItem = new ToolStripMenuItem(Translate("ctxMnu_LoadNewBook"), Properties.Resources.folder_open_32)
+                {
+                    Enabled = false,
+                    Name = _ctxMnuLoadNewBook
+                };
+                ToolStripMenuItem renameItem = new ToolStripMenuItem(Translate("ctxMnu_Rename"), Properties.Resources.pen_32)
+                {
+                    Enabled = false,
+                    Name = _ctxMnuRename
+                };
+                ToolStripMenuItem selectAllChildrenItem = new ToolStripMenuItem(Translate("ctxMnu_SelectAllChildren"), Properties.Resources.selectAll_32)
+                {
+                    Enabled = false,
+                    Name = _selectAllChildren
+                };
+                ToolStripMenuItem expandAllChildrenItem = new ToolStripMenuItem(Translate("ctxMnu_ExpandAllChildren"), Properties.Resources.ExpandAll_32)
+                {
+                    Enabled = false,
+                    Name = _expandAllChildren
+                };
+                ToolStripMenuItem deleteItem = new ToolStripMenuItem(Translate("ctxMnu_Delete"), Properties.Resources.delete_32)
+                {
+                    Enabled = false,
+                    Name = _ctxMnuDelete
+                };
 
                 CtxMnuRepertoire.Items.Add(loadNewBookItem);
                 CtxMnuRepertoire.Items.Add(renameItem);
+                CtxMnuRepertoire.Items.Add(selectAllChildrenItem);
+                CtxMnuRepertoire.Items.Add(expandAllChildrenItem);
                 CtxMnuRepertoire.Items.Add(deleteItem);
             }
             catch (Exception ex)
@@ -591,6 +625,8 @@ namespace Chess_Openings_Coach
             {
                 CtxMnuRepertoire.Items[_ctxMnuLoadNewBook].Enabled = true;
                 CtxMnuRepertoire.Items[_ctxMnuRename].Enabled = true;
+                CtxMnuRepertoire.Items[_selectAllChildren].Enabled = false;
+                CtxMnuRepertoire.Items[_expandAllChildren].Enabled = false;
                 CtxMnuRepertoire.Items[_ctxMnuDelete].Enabled = false;
                 CtxMnuRepertoire.Show(Cursor.Position);
             }
@@ -599,13 +635,18 @@ namespace Chess_Openings_Coach
                 ShowError(ex);
             }
         }
-        
+
         private void ShowContextMenuForMove()
         {
             try
             {
                 CtxMnuRepertoire.Items[_ctxMnuLoadNewBook].Enabled = false;
                 CtxMnuRepertoire.Items[_ctxMnuRename].Enabled = false;
+                CtxMnuRepertoire.Items[_selectAllChildren].Enabled = true;
+                CtxMnuRepertoire.Items[_selectAllChildren].Text = TrvRepertoires.SelectedNode.Checked ? Translate("ctxMnu_UnselectAllChildren") : Translate("ctxMnu_SelectAllChildren");
+                CtxMnuRepertoire.Items[_expandAllChildren].Enabled = true;
+                CtxMnuRepertoire.Items[_expandAllChildren].Text = TrvRepertoires.SelectedNode.IsExpanded ? Translate("ctxMnu_CollapseAllChildren") : Translate("ctxMnu_ExpandAllChildren");
+                CtxMnuRepertoire.Items[_expandAllChildren].Image = TrvRepertoires.SelectedNode.IsExpanded ? Properties.Resources.CollapseAll_32 : Properties.Resources.ExpandAll_32;
                 CtxMnuRepertoire.Items[_ctxMnuDelete].Enabled = true;
                 CtxMnuRepertoire.Show(Cursor.Position);
             }
@@ -784,7 +825,7 @@ namespace Chess_Openings_Coach
                         var childNode = GetRandomEnabledChildNode(existingNode);
                         if (childNode == null)
                         {
-                            if(MessageBox.Show(Translate("Msg_NomoreChildNode"),"", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                            if (MessageBox.Show(Translate("Msg_NomoreChildNode"), "", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                             {
                                 SetupLearningMode(WorkColor);
                             }

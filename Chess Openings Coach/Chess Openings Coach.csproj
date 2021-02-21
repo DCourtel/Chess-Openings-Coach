@@ -41,8 +41,9 @@
     <ApplicationIcon>Icone Application.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Chessboard.Control">
-      <HintPath>..\..\Chessboard Control\Chessboard Control\bin\Release\Chessboard.Control.dll</HintPath>
+    <Reference Include="Chessboard.Control, Version=1.0.2102.21, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Chessboard Control\Chessboard Control\bin\Debug\Chessboard.Control.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -146,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icone Application.ico" />
+    <None Include="Resources\CollapseAll_32.png" />
+    <None Include="Resources\ExpandAll_32.png" />
+    <None Include="Resources\selectAll_32.png" />
     <None Include="Resources\pen_32.png" />
     <None Include="Resources\delete_32.png" />
     <None Include="Resources\folder-open_32.png" />

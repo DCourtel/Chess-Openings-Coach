@@ -61,11 +61,29 @@ namespace Chess_Openings_Coach.Internationalization {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Collapse all child nodes.
+        /// </summary>
+        internal static string ctxMnu_CollapseAllChildren {
+            get {
+                return ResourceManager.GetString("ctxMnu_CollapseAllChildren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Delete.
         /// </summary>
         internal static string ctxMnu_Delete {
             get {
                 return ResourceManager.GetString("ctxMnu_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Expand all child nodes.
+        /// </summary>
+        internal static string ctxMnu_ExpandAllChildren {
+            get {
+                return ResourceManager.GetString("ctxMnu_ExpandAllChildren", resourceCulture);
             }
         }
         
@@ -84,6 +102,24 @@ namespace Chess_Openings_Coach.Internationalization {
         internal static string ctxMnu_Rename {
             get {
                 return ResourceManager.GetString("ctxMnu_Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Select all child nodes.
+        /// </summary>
+        internal static string ctxMnu_SelectAllChildren {
+            get {
+                return ResourceManager.GetString("ctxMnu_SelectAllChildren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unselect all child nodes.
+        /// </summary>
+        internal static string ctxMnu_UnselectAllChildren {
+            get {
+                return ResourceManager.GetString("ctxMnu_UnselectAllChildren", resourceCulture);
             }
         }
         
